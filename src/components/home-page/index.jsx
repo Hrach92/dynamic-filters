@@ -2,13 +2,13 @@ import React, { Fragment, useEffect } from "react";
 
 import { selectData, setData } from "../../store/reducers/data";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchData, itemsByPage } from "../../utils";
+import { fetchData, getItemsByPage } from "../../utils";
 import Product from "./product";
 import styles from "./styles.module.scss";
 import Pagination from "../_shared/pagination";
 
 const HomePage = () => {
-  const { data } = useSelector(selectData);
+  const { data, currentPage } = useSelector(selectData);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,7 +19,8 @@ const HomePage = () => {
     return () => clearTimeout(timer);
   }, [data, dispatch]);
 
-  const filteredData = itemsByPage(data, 1);
+  const filteredData = getItemsByPage(data, currentPage);
+
   return (
     <div className={styles.main}>
       <div className={styles.container}>

@@ -164,7 +164,7 @@ export const filterByCategories = (products) => {
 };
 
 export const PAGE_SIZE = 10;
-export const itemsByPage = (products, page = 1) => {
+export const getItemsByPage = (products, page = 1) => {
   const start = (page - 1) * PAGE_SIZE;
   const end = start + PAGE_SIZE;
   return products.slice(start, end);
@@ -181,3 +181,4 @@ export const generatePage = (products) => {
       };
     });
 };
+

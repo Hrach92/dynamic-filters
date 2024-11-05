@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const weatherInstance = axios.create({
-  baseURL: process.env.REACT_APP_WEATHER_APP,
+const dataInstance = axios.create({
+  baseURL: process.env.REACT_APP_,
 });
-export default weatherInstance;
+export default dataInstance;

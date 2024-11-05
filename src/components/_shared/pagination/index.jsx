@@ -31,7 +31,7 @@ const Pagination = () => {
 
   return (
     <div className={styles.container}>
-      <button className={styles.iconBtn} onClick={prevPage} disabled={lastPage}>
+      <button className={styles.iconBtn} onClick={prevPage} disabled={firstPage}>
         <img src={prev} alt="prev" className={styles.icon} />
       </button>
       <div className={styles.buttons}>

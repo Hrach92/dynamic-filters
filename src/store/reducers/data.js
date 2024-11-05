@@ -1,17 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { generatePage } from "../../utils";
+import { filterByCategories, generatePage } from "../../utils";
 
 const dataSlice = createSlice({
-  name: "weather",
+  name: "data",
   initialState: {
     data: [],
     pages: [],
+    categories: [],
     currentPage: 1,
   },
   reducers: {
     setData: (state, { payload }) => {
       state.data = payload;
       state.pages = generatePage(payload);
+      state.categories = filterByCategories(payload)
     },
     setPage: (state, { payload }) => {
       state.currentPage = payload;
