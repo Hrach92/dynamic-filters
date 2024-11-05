@@ -1,0 +1,134 @@
+.sidebar {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+  box-sizing: border-box;
+  background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1));
+  transition: width 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  z-index: 3;
+  cursor: pointer;
+  background: linear-gradient(135deg, #4a4a4a, #1c1c1c);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar:hover {
+  left: 0px;
+  top: 0px;
+  border-radius: 0;
+  padding: 120px 29px 0;
+  width: 300px;
+  height: 100vh;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0);
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transition: background 0.3s ease;
+  opacity: 1;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  min-width: 48px;
+  max-width: 142px;
+  box-sizing: border-box;
+}
+
+.activeItem {
+  background-color: #232a3f;
+  border-radius: 24px;
+  transition: border-radius 0.1s ease;
+}
+
+.sidebar:hover .activeItem {
+  border-radius: 8px;
+}
+
+.label {
+  color: #f9f9f9;
+  display: none;
+  height: 24px;
+  opacity: 0;
+  margin-left: 10px;
+  transition: opacity 0.3s ease 0.1s, visibility 0s 0.3s;
+  width: 100%;
+  word-break: unset;
+}
+
+.sidebar:hover .label {
+  transition-delay: 0.3s;
+  display: block;
+  opacity: 1;
+  transition: opacity 0.3s ease, visibility 0s;
+  white-space: nowrap;
+}
+
+.sidebar:hover .item:hover {
+  background-color: #232a3f;
+  border-radius: 8px;
+}
+
+.imgContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.imgContainer:hover {
+  border-radius: 50%;
+  background-color: #232a3f;
+}
+
+.img {
+  max-width: 16px;
+  max-height: 16px;
+}
+
+.profile {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  display: none;
+}
+
+.sidebar:hover .profile {
+  display: flex;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: grey;
+}
+
+.name {
+  color: white;
+}
+
+.bottomActions {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  color: grey;
+  font-size: 18px;
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  margin-top: 25px;
+  padding-left: 12px;
+  &>div {
+    white-space: nowrap;
+  }
+}
+
+.sidebar:hover .bottomActions {
+  display: flex;
+}

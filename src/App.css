@@ -1,12 +1,17 @@
-body{
+body {
   margin: 0;
   height: 100vh;
+  font-family: "Montserrat", sans-serif;
 }
-*{
+* {
   box-sizing: border-box;
-
 }
 
-body::-webkit-scrollbar{
+body::-webkit-scrollbar {
   width: 5px;
+  background-color: grey;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #e6e4e4;
+  border-radius: 2px;
 }

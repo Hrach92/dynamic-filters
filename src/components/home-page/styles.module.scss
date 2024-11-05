@@ -1,5 +1,33 @@
 .main{
+display: flex;
+flex-direction: column;
+height: calc(100vh - 50px);
+background-color: #f7f7f7;
+justify-content: space-between;
+}
+.container{
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 50px);
+    padding: 25px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-rows: 200px; 
+    gap: 15px;
+    position: relative;
 }
+@media screen and (max-width: 1250px) {
+    .main {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  @media screen and (max-width: 1050px) {
+    .main {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media screen and (max-width: 500px) {
+    .main {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
