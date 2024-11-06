@@ -55,7 +55,7 @@ export const fetchData = [
     category: "Electronics",
     brand: "Brand A",
     price: 99.99,
-    rating: 4.5,
+    rating: 4.1,
     imageUrl:
       "https://www.gonoise.com/cdn/shop/files/1_2807dbd9-3951-481c-9e9a-61af0420cd37.webp?v=1720759165",
   },
@@ -65,7 +65,7 @@ export const fetchData = [
     category: "Electronics",
     brand: "Brand B",
     price: 49.99,
-    rating: 4.0,
+    rating: 4.9,
     imageUrl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkzm330_QXVLpQJnT6jKW3ixSYYI9Vka9t6Q&s",
   },
@@ -75,7 +75,7 @@ export const fetchData = [
     category: "Footwear",
     brand: "Brand C",
     price: 59.99,
-    rating: 4.2,
+    rating: 4.6,
     imageUrl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrR_VvLy3HYbsqzU7IKn8M5CQhguNszaK1pQ&s",
   },
@@ -85,7 +85,7 @@ export const fetchData = [
     category: "Electronics",
     brand: "Brand D",
     price: 499.99,
-    rating: 4.8,
+    rating: 4.2,
     imageUrl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv-8vKfQuFwEoOQ9iIEnJbnkhro2q9nPrssw&s",
   },
@@ -95,7 +95,7 @@ export const fetchData = [
     category: "Clothing",
     brand: "Brand E",
     price: 199.99,
-    rating: 4.7,
+    rating: 4.4,
     imageUrl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWSJCYqyMx1xabjpRt8cjyxnoSUrgWcxXfdg&s",
   },
@@ -105,7 +105,7 @@ export const fetchData = [
     category: "Electronics",
     brand: "Brand A",
     price: 99.99,
-    rating: 4.5,
+    rating: 4.6,
     imageUrl:
       "https://www.gonoise.com/cdn/shop/files/1_2807dbd9-3951-481c-9e9a-61af0420cd37.webp?v=1720759165",
   },
@@ -115,7 +115,7 @@ export const fetchData = [
     category: "Electronics",
     brand: "Brand B",
     price: 49.99,
-    rating: 4.0,
+    rating: 4.1,
     imageUrl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkzm330_QXVLpQJnT6jKW3ixSYYI9Vka9t6Q&s",
   },
@@ -145,7 +145,7 @@ export const fetchData = [
     category: "Clothing",
     brand: "Brand E",
     price: 199.99,
-    rating: 4.7,
+    rating: 4.2,
     imageUrl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWSJCYqyMx1xabjpRt8cjyxnoSUrgWcxXfdg&s",
   },
@@ -163,11 +163,38 @@ export const filterByCategories = (products) => {
   }, {});
 };
 
+export const filterByBrands = (products) => {
+  const brands = new Set();
+
+  return products.filter(({ brand }) => {
+    if (brands.has(brand)) {
+      return false;
+    }
+    brands.add(brand);
+    return true;
+  }, {});
+};
+
+export const sortBy = (products, sortBy) => {
+  return [...products].sort((a, b) => {
+    if (sortBy === "price") {
+      return a.price - b.price;
+    } else if (sortBy === "rating") {
+      return a.rating - b.rating;
+    }
+    return 0;
+  });
+};
+
 export const PAGE_SIZE = 10;
-export const getItemsByPage = (products, page = 1) => {
+export const getItemsByPage = (products, page = 1, sortedBy) => {
   const start = (page - 1) * PAGE_SIZE;
   const end = start + PAGE_SIZE;
-  return products.slice(start, end);
+  const pageProducts = products.slice(start, end);
+  if (sortedBy === "off") return pageProducts;
+  console.log(sortBy(pageProducts, sortedBy));
+
+  return sortBy(pageProducts, sortedBy);
 };
 
 export const generatePage = (products) => {
@@ -181,4 +208,3 @@ export const generatePage = (products) => {
       };
     });
 };
-

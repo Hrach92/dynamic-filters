@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { filterByCategories, generatePage } from "../../utils";
+import { filterByCategories, filterByBrands, generatePage } from "../../utils";
 
 const dataSlice = createSlice({
   name: "data",
@@ -7,20 +7,32 @@ const dataSlice = createSlice({
     data: [],
     pages: [],
     categories: [],
+    brands: [],
+    minPrice: 0,
+    maxPrice: 0,
     currentPage: 1,
+    sortBy: "off",
+    filteredCategories: [],
+    filteredBrands: [],
   },
   reducers: {
-    setData: (state, { payload }) => {
+    setDefaultData: (state, { payload }) => {
       state.data = payload;
       state.pages = generatePage(payload);
-      state.categories = filterByCategories(payload)
+      state.categories = filterByCategories(payload);
+      state.brands = filterByBrands(payload);
+      state.minPrice = Math.min(...payload.map((item) => item.price));
+      state.maxPrice = Math.max(...payload.map((item) => item.price));
     },
     setPage: (state, { payload }) => {
       state.currentPage = payload;
     },
+    setSortBy: (state, { payload }) => {
+      state.sortBy = payload;
+    },
   },
 });
 
-export const { setData, setPage } = dataSlice.actions;
+export const { setDefaultData, setPage, setSortBy } = dataSlice.actions;
 export const selectData = (state) => state.dataSlice;
 export default dataSlice.reducer;

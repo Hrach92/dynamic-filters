@@ -4,13 +4,12 @@ import styles from "./styles.module.scss";
 import { selectData } from "../../store/reducers/data";
 
 const Sidebar = () => {
-
-  const { categories } = useSelector(selectData)
+  const { categories, brands, minPrice, maxPrice } = useSelector(selectData);
 
   return (
     <div className={styles.sidebar}>
       <div className={styles.actions}>
-        Categories
+        <span>Categories</span>
         <div className={styles.categories}>
           {categories.map(({ id, category }) => (
             <label key={id} className={styles.label}>
@@ -19,8 +18,23 @@ const Sidebar = () => {
             </label>
           ))}
         </div>
-        <Slider min={1} max={5} step={0.5} initial={3} title="Rating"/>
-        <Slider min={0} max={1000} step={50} initial={250} title="Price"/>
+        <span>Brands</span>
+        <div className={styles.categories}>
+          {brands.map(({ id, brand }) => (
+            <label key={id} className={styles.label}>
+              <input type="checkbox" />
+              {brand}
+            </label>
+          ))}
+        </div>
+        <Slider min={1} max={5} step={0.1} initial={3} title="Rating" />
+        <Slider
+          min={minPrice}
+          max={maxPrice}
+          step={10}
+          initial={50}
+          title="Price"
+        />
       </div>
     </div>
   );
