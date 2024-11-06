@@ -1,41 +1,40 @@
-.container{
-    background-color: #f7f7f7;
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 0 30px;
+  width: 100%;
+  .buttons {
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: center;
-    gap: 10px;
-    padding: 15px 0 30px;
-    width: 100%;
-    .buttons{
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        gap: 15px;
-        min-width: 150px,
-    }
-    .btn {
-        width: 50px;
-        height: 50px;
-        border-radius: 25px;
-        border: 0;
-        border: 1px solid #cecaca;
-        cursor: pointer;
-    }
-    .icon{
-        width: 50px;
-        height: 50px;
-        border-radius: 25px;
-        border: 0;
-        border: 1px solid #cecaca;
-    }
-    .current{
-        background-color: grey;
-    }
-    .iconBtn{
-        border: 0;
-        background-color: inherit;
-        cursor: pointer;
-        height: 50px;
-    }
+    gap: 15px;
+    min-width: 150px;
+  }
+  .btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    border: 0;
+    border: 1px solid #cecaca;
+    cursor: pointer;
+  }
+  .icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    border: 0;
+    border: 1px solid #cecaca;
+  }
+  .current {
+    background-color: grey;
+  }
+  .iconBtn {
+    border: 0;
+    background-color: inherit;
+    cursor: pointer;
+    height: 50px;
+  }
 }

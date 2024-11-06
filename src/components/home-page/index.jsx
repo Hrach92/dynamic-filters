@@ -6,10 +6,10 @@ import { fetchData, getItemsByPage } from "../../utils";
 import Product from "./product";
 import styles from "./styles.module.scss";
 import Pagination from "../_shared/pagination";
-import Dropdown from "../_shared/dropdown";
+import Search from "../_shared/search";
 
 const HomePage = () => {
-  const { data, currentPage, sortBy } = useSelector(selectData);
+  const { data, currentPage, sortBy, pages } = useSelector(selectData);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -18,23 +18,25 @@ const HomePage = () => {
     }, 3000);
 
     return () => clearTimeout(timer);
-  }, [data, dispatch]);
+  }, [dispatch]);
 
-  const filteredData = getItemsByPage(data, currentPage, sortBy);
+  const filteredByPages = getItemsByPage(data, currentPage, sortBy);
 
   return (
     <div className={styles.main}>
-      <Dropdown />
-      <div className={styles.container}>
-        {filteredData.map(({ id, ...product }) => {
-          return (
-            <Fragment key={id}>
-              <Product product={product} />
-            </Fragment>
-          );
-        })}
+      <div className={styles.top}>
+        <Search />
+        <div className={styles.container}>
+          {filteredByPages.map(({ id, ...product }) => {
+            return (
+              <Fragment key={id}>
+                <Product product={product} />
+              </Fragment>
+            );
+          })}
+        </div>
       </div>
-      <Pagination />
+      {pages.length > 1 && <Pagination />}
     </div>
   );
 };

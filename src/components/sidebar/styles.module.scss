@@ -18,11 +18,12 @@
   left: 0px;
   top: 0px;
   border-radius: 0;
-  padding: 120px 29px 0;
+  padding: 60px 29px 0;
   width: 300px;
-  height: 100vh;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  height: 80vh;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.1));
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0);
+  border-radius: 0 0 15px 0;
 }
 
 .actions {
@@ -34,7 +35,7 @@
   text-transform: uppercase;
   margin-top: 25px;
   padding-left: 12px;
-  &>div {
+  & > div {
     white-space: nowrap;
   }
 }
@@ -42,14 +43,14 @@
 .sidebar:hover .actions {
   display: flex;
 }
-.categories{
+.categories {
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-bottom: 15px;
 }
 
-.label{
+.label {
   display: flex;
   gap: 5px;
   align-items: center;
@@ -58,7 +59,6 @@
   font-size: 12px;
   background-color: #1c1c1c;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
-  
 }
 .label input[type="checkbox"] {
   cursor: pointer;
@@ -73,13 +73,26 @@
   border: 2px solid grey;
   padding: 1px;
   border-radius: 0.5rem;
-  accent-color: #4caf50; 
+  accent-color: #4caf50;
 }
 input[type="checkbox"]::before {
   content: "";
   width: 10px;
   height: 10px;
-  clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+  clip-path: polygon(
+    20% 0%,
+    0% 20%,
+    30% 50%,
+    0% 80%,
+    20% 100%,
+    50% 70%,
+    80% 100%,
+    100% 80%,
+    70% 50%,
+    100% 20%,
+    80% 0%,
+    50% 30%
+  );
   transform: scale(0);
   background-color: green;
 }

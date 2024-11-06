@@ -4,6 +4,7 @@ import { filterByCategories, filterByBrands, generatePage } from "../../utils";
 const dataSlice = createSlice({
   name: "data",
   initialState: {
+    initialData: [],
     data: [],
     pages: [],
     categories: [],
@@ -18,11 +19,16 @@ const dataSlice = createSlice({
   reducers: {
     setDefaultData: (state, { payload }) => {
       state.data = payload;
+      state.initialData = payload;
       state.pages = generatePage(payload);
       state.categories = filterByCategories(payload);
       state.brands = filterByBrands(payload);
       state.minPrice = Math.min(...payload.map((item) => item.price));
       state.maxPrice = Math.max(...payload.map((item) => item.price));
+    },
+    setData: (state, { payload }) => {
+      state.data = payload;
+      state.pages = generatePage(payload);
     },
     setPage: (state, { payload }) => {
       state.currentPage = payload;
@@ -33,6 +39,7 @@ const dataSlice = createSlice({
   },
 });
 
-export const { setDefaultData, setPage, setSortBy } = dataSlice.actions;
+export const { setDefaultData, setPage, setSortBy, setData } =
+  dataSlice.actions;
 export const selectData = (state) => state.dataSlice;
 export default dataSlice.reducer;

@@ -192,8 +192,6 @@ export const getItemsByPage = (products, page = 1, sortedBy) => {
   const end = start + PAGE_SIZE;
   const pageProducts = products.slice(start, end);
   if (sortedBy === "off") return pageProducts;
-  console.log(sortBy(pageProducts, sortedBy));
-
   return sortBy(pageProducts, sortedBy);
 };
 
