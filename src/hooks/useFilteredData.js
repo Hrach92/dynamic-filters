@@ -1,75 +1,45 @@
-import { useCallback, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { selectData, setData } from "../store/reducers/data";
+import { useCallback, useMemo } from "react";
+import { useSelector } from "react-redux";
+import { selectData } from "../store/reducers/data";
 
 const useFilteredData = () => {
-  const { initialData } = useSelector(selectData);
-  const dispatch = useDispatch();
-  const [filteredByCategories, setFilteredByCategories] = useState([]);
-  const [filteredByBrands, setFilteredByBrands] = useState([]);
+  const { initialData, filteredCategories, filteredBrands, filterRate, filterPrice, maxPrice, minPrice } = useSelector(selectData);
+  console.log(filteredCategories, filteredBrands, filterRate, filterPrice);
 
-  const filterByCategories = useCallback((categories, products) => {
-    if (categories.length === 0) return products;
+  const filterByCategories = useCallback((products) => {
+    if (filteredCategories.length === 0) return products;
     return products.filter(({ category }) => {
-      return categories.some((v) => v === category);
+      return filteredCategories.some((v) => v === category);
     });
-  }, []);
+  }, [filteredCategories]);
 
-  const filterByBrand = useCallback((brands, products) => {
-    if (brands.length === 0) return products;
+  const filterByBrand = useCallback((products) => {
+    if (filteredBrands.length === 0) return products;
     return products.filter(({ brand }) => {
-      return brands.some((v) => v === brand);
+      return filteredBrands.some((v) => v === brand);
     });
-  }, []);
+  }, [filteredBrands]);
 
-  const checkByCategory = useCallback(
-    (checked, category) => {
-      let filters = [];
-      if (checked) {
-        filters = [...filteredByCategories, category];
-      } else {
-        filters = filteredByCategories.filter((c) => c !== category);
-      }
+  const filterByPrice = useCallback((products) => {
+    if (filterPrice === minPrice) return products;
+    return products.filter(({ price }) => {
+      return price >= filterPrice && price <= maxPrice;
+    });
+  }, [filterPrice, minPrice, maxPrice]);
 
-      const filteredByBrandData = filterByBrand(
-        filteredByCategories,
-        initialData
-      );
-      const categoryData = filterByCategories(filters, filteredByBrandData);
-      setFilteredByCategories(filters);
-      dispatch(setData(categoryData));
-    },
-    [
-      dispatch,
-      filterByBrand,
-      filterByCategories,
-      filteredByCategories,
-      initialData,
-    ]
-  );
+  const filterByRate = useCallback((products) => {
+    return products.filter(({ rating }) => {
+      return rating >= filterRate && rating <= 5
+    });
+  }, [filterRate]);
 
-  const checkByBrand = useCallback(
-    (checked, brand) => {
-      let filters = [];
-      if (checked) {
-        filters = [...filteredByBrands, brand];
-      } else {
-        filters = filteredByBrands.filter((c) => c !== brand);
-      }
+  const filteredProducts = useMemo(() => {
+    const firstFiltration = filterByCategories(initialData);
+    const secondFiltration = filterByBrand(firstFiltration);
+    const thirdFiltration = filterByPrice(secondFiltration);
+    return filterByRate(thirdFiltration);
+  }, [filterByCategories, filterByBrand, filterByPrice, filterByRate, initialData]);
 
-      const filteredByCategoriesData = filterByBrand(
-        filteredByBrands,
-        initialData
-      );
-      const categoryData = filterByCategories(
-        filters,
-        filteredByCategoriesData
-      );
-      setFilteredByBrands(filters);
-      dispatch(setData(categoryData));
-    },
-    [dispatch, filterByBrand, filterByCategories, filteredByBrands, initialData]
-  );
 
   const searchByText = useCallback(
     (value) => {
@@ -81,9 +51,8 @@ const useFilteredData = () => {
   );
 
   return {
-    checkByCategory,
-    checkByBrand,
     searchByText,
+    filteredProducts
   };
 };
 export default useFilteredData;

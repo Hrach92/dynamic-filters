@@ -1,12 +1,11 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Slider from "../_shared/slider";
 import styles from "./styles.module.scss";
-import { selectData } from "../../store/reducers/data";
-import useFilteredData from "../../hooks/useFilteredData";
+import { selectData, setBrandFilters, setCategoryFilters, setPriceFilters, setRateFilters } from "../../store/reducers/data";
 
 const Sidebar = () => {
-  const { categories, brands, minPrice, maxPrice } = useSelector(selectData);
-  const { checkByCategory, checkByBrand } = useFilteredData();
+  const { categories, brands, minPrice, maxPrice, filterPrice, filterRate } = useSelector(selectData);
+  const dispatch = useDispatch()
 
   return (
     <div className={styles.sidebar}>
@@ -17,7 +16,7 @@ const Sidebar = () => {
             <label key={id} className={styles.label}>
               <input
                 type="checkbox"
-                onChange={(e) => checkByCategory(e.target.checked, category)}
+                onChange={(e) => dispatch(setCategoryFilters({ checked: e.target.checked, category }))}
               />
               {category}
             </label>
@@ -29,19 +28,20 @@ const Sidebar = () => {
             <label key={id} className={styles.label}>
               <input
                 type="checkbox"
-                onChange={(e) => checkByBrand(e.target.checked, brand)}
+                onChange={(e) => dispatch(setBrandFilters({ checked: e.target.checked, brand }))}
               />
               {brand}
             </label>
           ))}
         </div>
-        <Slider min={1} max={5} step={0.1} initial={3} title="Rating" />
+        <Slider min={1} max={5} step={0.1} initial={filterRate} title="Rating" setValue={setRateFilters} />
         <Slider
           min={minPrice}
           max={maxPrice}
           step={10}
-          initial={50}
+          initial={filterPrice}
           title="Price"
+          setValue={setPriceFilters}
         />
       </div>
     </div>

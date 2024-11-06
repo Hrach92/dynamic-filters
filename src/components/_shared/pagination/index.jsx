@@ -7,8 +7,8 @@ import { useCallback } from "react";
 import classNames from "classnames";
 import styles from "./styles.module.scss";
 
-const Pagination = () => {
-  const { pages, currentPage } = useSelector(selectData);
+const Pagination = ({ pages }) => {
+  const { currentPage } = useSelector(selectData);
   const dispatch = useDispatch();
 
   const setCurrentPage = useCallback(

@@ -188,6 +188,7 @@ export const sortBy = (products, sortBy) => {
 
 export const PAGE_SIZE = 10;
 export const getItemsByPage = (products, page = 1, sortedBy) => {
+  if (products.length <= PAGE_SIZE) return products
   const start = (page - 1) * PAGE_SIZE;
   const end = start + PAGE_SIZE;
   const pageProducts = products.slice(start, end);
@@ -206,3 +207,26 @@ export const generatePage = (products) => {
       };
     });
 };
+
+export const getCategories = (checked, category, categories) => {
+  if (checked) {
+    return [...categories, category];
+  } else {
+    return categories.filter((c) => c !== category);
+  }
+}
+export const getBrands = (checked, brand, brands) => {
+  if (checked) {
+    return [...brands, brand];
+  } else {
+    return brands.filter((b) => b !== brand);
+  }
+}
+
+export const setLocalStorage = (storage, key, value) => {
+  if (typeof window !== "undefined") {
+    const filters = JSON.parse(localStorage.getItem(storage)) || {};
+    const serializedValue = JSON.stringify({ ...filters, [key]: value });
+    localStorage.setItem(storage, serializedValue);
+  }
+}
