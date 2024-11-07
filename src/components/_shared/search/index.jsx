@@ -1,17 +1,21 @@
 import { useDispatch } from "react-redux";
-import useFilteredData from "../../../hooks/useFilteredData";
 import useOnChange from "../../../hooks/useOnChange";
 import styles from "./styles.module.scss";
-import { setData } from "../../../store/reducers/data";
+import { resetFilters } from "../../../store/reducers/data";
+import { useCallback } from "react";
 
-const Search = () => {
+const Search = ({ setValue }) => {
   const { value, onChange } = useOnChange();
-  const { searchByText } = useFilteredData();
   const dispatch = useDispatch();
+
+  const onClick = useCallback(() => {
+    dispatch(resetFilters());
+    setValue(value);
+  }, [dispatch, setValue, value]);
+
   const handleKeyPress = (event) => {
     if (event.key === "Enter" && value) {
-      const data = searchByText(value);
-      dispatch(setData(data));
+      onClick();
     }
   };
 
@@ -23,7 +27,9 @@ const Search = () => {
         onChange={onChange}
         onKeyDown={handleKeyPress}
       />
-      <button className={styles.button}>Search</button>
+      <button className={styles.button} onClick={onClick}>
+        Search
+      </button>
     </div>
   );
 };

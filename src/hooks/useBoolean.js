@@ -1,14 +1,14 @@
 import { useCallback, useState } from "react";
 
-const useBoolean = () => {
-  const [open, setOpen] = useState(false);
+const useBoolean = (initValue = false) => {
+  const [open, setOpen] = useState(initValue);
 
   const setTrue = useCallback(() => setOpen(true), [setOpen]);
   const setFalse = useCallback(() => setOpen(false), [setOpen]);
   const setToggle = useCallback(() => setOpen((prev) => !prev), [setOpen]);
 
   return {
-    state: open,
+    open,
     setTrue,
     setFalse,
     setToggle,
