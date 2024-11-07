@@ -48,6 +48,9 @@ const HomePage = () => {
     <div className={styles.main}>
       <div className={styles.top}>
         <Search />
+        {filteredByPages.length === 0 && (
+          <div className={styles.info}>No products found</div>
+        )}
         <div className={styles.container}>
           {filteredByPages.map(({ id, ...product }) => {
             return (

@@ -19,6 +19,16 @@
   gap: 15px;
   position: relative;
 }
+.info {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding-top: 80px;
+  font-size: 18px;
+  font-weight: 600;
+  color: red;
+}
 @media screen and (max-width: 1600px) {
   .container {
     grid-template-columns: repeat(4, 1fr);
