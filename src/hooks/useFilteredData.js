@@ -1,7 +1,6 @@
 import { useCallback, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { selectData } from "../store/reducers/data";
-import useOnChange from "./useOnChange";
 
 const useFilteredData = () => {
   const {
@@ -12,9 +11,8 @@ const useFilteredData = () => {
     filterPrice,
     maxPrice,
     minPrice,
+    searchText,
   } = useSelector(selectData);
-
-  const { value, setValue } = useOnChange();
 
   const filterByCategories = useCallback(
     (products) => {
@@ -56,25 +54,24 @@ const useFilteredData = () => {
   );
 
   const searchByText = useCallback(
-    (value) => {
-      return initialData.filter(({ name, category }) => {
+    (products) => {
+      return products.filter(({ name, category }) => {
         return (
-          name.toLowerCase().includes(value.toLowerCase()) ||
-          category.toLowerCase().includes(value.toLowerCase())
+          name.toLowerCase().includes(searchText.toLowerCase()) ||
+          category.toLowerCase().includes(searchText.toLowerCase())
         );
       });
     },
-    [initialData]
+    [searchText]
   );
 
   const filteredProducts = useMemo(() => {
-    if (value) return searchByText(value);
     const firstFiltration = filterByCategories(initialData);
     const secondFiltration = filterByBrand(firstFiltration);
     const thirdFiltration = filterByPrice(secondFiltration);
-    return filterByRate(thirdFiltration);
+    const fourthFiltration = searchByText(thirdFiltration);
+    return filterByRate(fourthFiltration);
   }, [
-    value,
     searchByText,
     filterByCategories,
     initialData,
@@ -86,7 +83,6 @@ const useFilteredData = () => {
   return {
     searchByText,
     filteredProducts,
-    setValue,
   };
 };
 export default useFilteredData;

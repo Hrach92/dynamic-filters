@@ -20,7 +20,7 @@ const override = {
 const HomePage = () => {
   const { currentPage, sortBy } = useSelector(selectData);
   const dispatch = useDispatch();
-  const { filteredProducts, setValue } = useFilteredData();
+  const { filteredProducts } = useFilteredData();
   const { open: fetching, setFalse: setFetched } = useBoolean(true);
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const HomePage = () => {
   ) : (
     <div className={styles.main}>
       <div className={styles.top}>
-        <Search setValue={setValue} />
+        <Search />
         <div className={styles.container}>
           {filteredByPages.map(({ id, ...product }) => {
             return (

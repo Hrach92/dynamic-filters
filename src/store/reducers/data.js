@@ -21,6 +21,7 @@ const initialState = {
   filteredBrands: [],
   filterPrice: 0,
   filterRate: 1,
+  searchText: "",
 };
 
 const dataSlice = createSlice({
@@ -82,6 +83,10 @@ const dataSlice = createSlice({
       state.filteredCategories = [];
       state.filteredBrands = [];
       state.filterRate = 1;
+      state.searchText = "";
+    },
+    setSearchText: (state, { payload }) => {
+      state.searchText = payload;
     },
   },
 });
