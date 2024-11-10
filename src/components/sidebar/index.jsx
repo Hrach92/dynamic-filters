@@ -10,6 +10,8 @@ import {
   setRateFilters,
 } from "../../store/reducers/data";
 import { useCallback } from "react";
+import menu from "../../images/menu.png";
+import useBoolean from "../../hooks/useBoolean";
 
 const Sidebar = () => {
   const {
@@ -28,8 +30,15 @@ const Sidebar = () => {
     dispatch(resetFilters());
   }, [dispatch]);
 
+  const { open, setTrue, setFalse } = useBoolean();
+
   return (
-    <div className={styles.sidebar}>
+    <div
+      className={styles.sidebar}
+      onMouseEnter={setTrue}
+      onMouseLeave={setFalse}
+    >
+      {!open && <img src={menu} alt="menu" className={styles.img} />}
       <div className={styles.actions}>
         <button className={styles.clear} onClick={clearFilters}>
           Clear Filters
